@@ -1,9 +1,14 @@
 package com.example.triviaapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
@@ -34,6 +39,11 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
     private TextView textView;
+    private List<TriviaQuestion.Question> questions;
+    private ActivityResultLauncher resultLauncher;
+    private int category = 9;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,34 +58,50 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
         textView = findViewById(R.id.text_view_results);
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://jsonplaceholder.typicode.com/")
+//        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://jsonplaceholder.typicode.com/")
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://opentdb.com/")
                 .addConverterFactory(GsonConverterFactory.create()).build();
-        JsonPlaceHolderAPI jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderAPI.class);
+        OpenTriviaAPI question = retrofit.create(OpenTriviaAPI.class);
 
-        Call<List<Post>> call = jsonPlaceHolderApi.getPost();
-        call.enqueue(new Callback<List<Post>>() {
+        Call<TriviaQuestion> call =question.getQuestions(10,9);
+        call.enqueue(new Callback<TriviaQuestion>() {
             @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+            public void onResponse(Call<TriviaQuestion> call, Response<TriviaQuestion> response) {
                 if(!response.isSuccessful()){
-                    textView.setText("Code: "+response.code());
+                    textView.setText("Code: "+ response.code());
                     return;
                 }
 
-                List<Post> posts = response.body();
-                for(Post post : posts){
-                    String content = "";
-                    content+="ID: " + post.getId() + "\n";
-                    content+="User" + post.getUserId() + '\n';
-                    content+= "Title: " + post.getTitle() + '\n';
-                    content+= "Text:" + post.getText() + "\n \n";
 
-                    textView.append(content);
-                }
+                textView.setText("here");
+                TriviaQuestion temp = response.body();
+                questions = temp.getResults();
+                TriviaQuestion.Question first = questions.get(0);
+                String content = "";
+                content += "Question " + first.getQuestion();
+                content += "Correct Answer " + first.getCorrect_answer();
+                content += "Incorrect Answer " + first.getIncorrect_answer();
+                textView.setText(content);
+
+
+
+//                for(TriviaQuestion.Question question: questions){
+//                    String content = "";
+//                    content += "Question " + question.getQuestion();
+//                    textView.append(content);
+//                }
+
+//                TriviaQuestion questions = response.body();
+//                for(TriviaQuestion question: questions){
+//                    String content = "";
+//                    content += "Question " + question.getResults();
+//                    textView.append(content);
+//                }
 
             }
 
             @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
+            public void onFailure(Call<TriviaQuestion> call, Throwable t) {
                 textView.setText(t.getMessage());
             }
         });
@@ -84,11 +110,34 @@ public class MainActivity extends AppCompatActivity {
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                openQuiz();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
             }
         });
+
+
+        this.resultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                Intent data = result.getData();
+
+                if(data != null){
+                    // save data here
+                }
+            }
+        });
+
     }
+
+    public void openQuiz(){
+        Intent intent = new Intent(getApplicationContext(),QuizActivity.class);
+        intent.putExtra("Category",this.category);
+
+        this.resultLauncher.launch(intent);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
