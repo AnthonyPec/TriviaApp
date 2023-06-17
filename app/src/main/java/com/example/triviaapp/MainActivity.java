@@ -58,55 +58,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
         textView = findViewById(R.id.text_view_results);
-//        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://jsonplaceholder.typicode.com/")
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://opentdb.com/")
-                .addConverterFactory(GsonConverterFactory.create()).build();
-        OpenTriviaAPI question = retrofit.create(OpenTriviaAPI.class);
-
-        Call<TriviaQuestion> call =question.getQuestions(10,9);
-        call.enqueue(new Callback<TriviaQuestion>() {
-            @Override
-            public void onResponse(Call<TriviaQuestion> call, Response<TriviaQuestion> response) {
-                if(!response.isSuccessful()){
-                    textView.setText("Code: "+ response.code());
-                    return;
-                }
-
-
-                textView.setText("here");
-                TriviaQuestion temp = response.body();
-                questions = temp.getResults();
-                TriviaQuestion.Question first = questions.get(0);
-                String content = "";
-                content += "Question " + first.getQuestion();
-                content += "Correct Answer " + first.getCorrect_answer();
-                content += "Incorrect Answer " + first.getIncorrect_answer();
-                textView.setText(content);
-
-
-
-//                for(TriviaQuestion.Question question: questions){
-//                    String content = "";
-//                    content += "Question " + question.getQuestion();
-//                    textView.append(content);
-//                }
-
-//                TriviaQuestion questions = response.body();
-//                for(TriviaQuestion question: questions){
-//                    String content = "";
-//                    content += "Question " + question.getResults();
-//                    textView.append(content);
-//                }
-
-            }
-
-            @Override
-            public void onFailure(Call<TriviaQuestion> call, Throwable t) {
-                textView.setText(t.getMessage());
-            }
-        });
-
-
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

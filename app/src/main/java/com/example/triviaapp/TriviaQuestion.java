@@ -9,6 +9,7 @@ public class TriviaQuestion {
     private int response;
     private List<Question> results;
 
+
     public int getResponse() {
         return response;
     }
@@ -24,7 +25,7 @@ public class TriviaQuestion {
         private String difficulty;
         private String question;
         private String correct_answer;
-        private String incorrect_answer;
+        private List<String> incorrect_answers;
 
         public String getCategory() {
             return category;
@@ -46,8 +47,8 @@ public class TriviaQuestion {
             return correct_answer;
         }
 
-        public String getIncorrect_answer() {
-            return incorrect_answer;
+        public List<String> getIncorrect_answers() {
+            return incorrect_answers;
         }
 
     }
