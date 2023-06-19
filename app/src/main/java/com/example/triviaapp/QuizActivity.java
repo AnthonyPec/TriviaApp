@@ -23,6 +23,7 @@ import com.example.triviaapp.databinding.ActivityQuizBinding;
 
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class QuizActivity extends AppCompatActivity {
@@ -33,6 +34,10 @@ public class QuizActivity extends AppCompatActivity {
     private int nextQuestion = 0;
     TextView textView;
     private RadioGroup radioGroup;
+    private Button startButton;
+    private int numCorrect=0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +54,20 @@ public class QuizActivity extends AppCompatActivity {
         triviaQuestion = new TriviaQuestions(this);
         triviaQuestion.loadQuestions();
 
+        this.startButton = findViewById(R.id.button_first);
+        this.startButton.setEnabled(false);
+
+
+
+    }
+
+    public void ready(){
+        this.startButton.setEnabled(true);
+
+    }
+
+
+    public void start(){
         this.textView = findViewById(R.id.textview_first);
 
         this.radioGroup = findViewById(R.id.rGroup);
@@ -63,9 +82,8 @@ public class QuizActivity extends AppCompatActivity {
                 }
             });
         }
-
+        setNextQuestion();
     }
-
 
 
     /**
@@ -102,6 +120,7 @@ public class QuizActivity extends AppCompatActivity {
 
     private void createMultCQuestion(){
         ArrayList<String> options = this.triviaQuestion.getOptions();
+        Collections.shuffle(options);
         for(int i =0; i < this.radioGroup.getChildCount(); i++){
             RadioButton x = (RadioButton) this.radioGroup.getChildAt(i);
             x.setText(options.get(i));
@@ -110,6 +129,7 @@ public class QuizActivity extends AppCompatActivity {
 
     public void submit(){
         int selectedId = radioGroup.getCheckedRadioButtonId();
+        radioGroup.clearCheck();
         // find the radiobutton by returned id
         RadioButton radioButton = (RadioButton) findViewById(selectedId);
 
@@ -118,6 +138,10 @@ public class QuizActivity extends AppCompatActivity {
         String text = check ? "Correct":"Wrong";
         Toast.makeText(this,
                 text, Toast.LENGTH_SHORT).show();
+
+        if(check){
+            this.numCorrect++;
+        }
     }
 
 

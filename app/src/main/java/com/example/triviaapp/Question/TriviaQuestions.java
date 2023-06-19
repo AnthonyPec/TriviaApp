@@ -47,7 +47,8 @@ public class TriviaQuestions {
 
                 com.example.triviaapp.TriviaQuestion temp = response.body();
                 questions = temp.getResults();
-                parent.setNextQuestion();
+//                parent.setNextQuestion();
+                parent.ready();
             }
 
             @Override
