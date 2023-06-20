@@ -95,7 +95,7 @@ public class QuizActivity extends AppCompatActivity {
             nextQuestion++;
         }
         catch(Exception ex){
-            finish();
+            this.end();
         }
 
 
@@ -144,6 +144,10 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
 
+
+    public void end(){
+        finish();
+    }
 
 
 

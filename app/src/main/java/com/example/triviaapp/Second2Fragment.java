@@ -33,13 +33,13 @@ public class Second2Fragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(Second2Fragment.this)
-                        .navigate(R.id.action_Second2Fragment_to_First2Fragment);
-            }
-        });
+//        binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                NavHostFragment.findNavController(Second2Fragment.this)
+//                        .navigate(R.id.action_Second2Fragment_to_First2Fragment);
+//            }
+//        });
 
 
 
@@ -53,6 +53,7 @@ public class Second2Fragment extends Fragment {
 
             public void onFinish() {
                 timer.setText("done!");
+                ((QuizActivity)getActivity()).finish();
             }
         }.start();
 

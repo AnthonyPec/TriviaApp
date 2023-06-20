@@ -25,4 +25,14 @@
             android:id="@+id/action_Second2Fragment_to_First2Fragment"
             app:destination="@id/First2Fragment" />
     </fragment>
+    <fragment
+        android:id="@+id/FinishFragment"
+        android:name="com.example.triviaapp.FinishFragment"
+        android:label="Finish Fragment"
+        tools:layout="@layout/fragment_second2">
+
+        <action
+            android:id="@+id/action_Second2Fragment_to_First2Fragment"
+            app:destination="@id/First2Fragment" />
+    </fragment>
 </navigation>

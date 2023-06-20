@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/jon_tyson_hhq1lxtuwd8_unsplash"
     tools:context=".First2Fragment">
 
 
@@ -13,6 +14,7 @@
         android:layout_height="48dp"
         android:layout_marginTop="64dp"
         android:text="Timer"
+        android:textColor="@color/white"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="172dp"
         android:text="Some Text Here"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,41 +51,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
-            android:text="0" />
+            android:text="0"
+            android:textColor="@color/white" />
 
         <RadioButton
             android:id="@+id/Option2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
-            android:text="1" />
+            android:text="1"
+            android:textColor="@color/white" />
 
         <RadioButton
             android:id="@+id/Option3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
-            android:text="2" />
+            android:text="2"
+            android:textColor="@color/white" />
 
         <RadioButton
             android:id="@+id/Option4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
-            android:text="3" />
+            android:text="3"
+            android:textColor="@color/white" />
 
     </RadioGroup>
 
-
-    <Button
-        android:id="@+id/button_first"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Submit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_first"
-        app:layout_constraintVertical_bias="0.875" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
