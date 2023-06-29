@@ -3,6 +3,7 @@ package com.example.triviaapp;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.triviaapp.Database.AppDatabase;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.activity.result.ActivityResult;
@@ -17,6 +18,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.room.Room;
 
 import com.example.triviaapp.databinding.ActivityMainBinding;
 
@@ -79,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "database-name").build();
 
     }
 
