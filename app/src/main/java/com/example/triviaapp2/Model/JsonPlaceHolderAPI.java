@@ -1,4 +1,4 @@
-package com.example.triviaapp;
+package com.example.triviaapp2.Model;
 
 import java.util.List;
 
@@ -6,7 +6,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface JsonPlaceHolderAPI {
-
     @GET("posts")
     Call<List<Post>> getPost();
 }

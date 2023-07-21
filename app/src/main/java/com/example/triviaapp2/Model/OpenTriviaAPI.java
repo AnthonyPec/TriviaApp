@@ -1,4 +1,5 @@
-package com.example.triviaapp;
+package com.example.triviaapp2.Model;
+
 
 import java.util.List;
 
@@ -13,5 +14,6 @@ public interface OpenTriviaAPI {
     Call<List<Post>> getPost();
 
     @GET("api.php")
-    Call<TriviaQuestion> getQuestions(@Query("amount") int amount, @Query("category") int postId);
+    Call<TriviaQuestion> getQuestions(@Query("amount") int amount, @Query("category") int postId,@Query("type") String type);
 }
+

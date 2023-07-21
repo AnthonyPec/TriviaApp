@@ -1,4 +1,5 @@
-package com.example.triviaapp;
+package com.example.triviaapp2.Model;
+
 import com.google.gson.annotations.SerializedName;
 
 public class Post {
